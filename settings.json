@@ -1,0 +1,15 @@
+{
+    "NICK": "User",
+    "PASS": "oauth:xxxxxxxxxxx",
+    "allow_multiple": true,
+    "num_default_6": 6,
+    "commands":
+    {
+        "up": "{UP}",
+        "down": "{DOWN}",
+        "left": "{LEFT}",
+        "right": "{RIGHT}",
+        "a": "x",
+        "b": "z"
+    }
+}
