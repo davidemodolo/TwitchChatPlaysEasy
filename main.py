@@ -100,7 +100,7 @@ class ChatPlaysBot(Bot):
             print(f'{username} -> {commands[msg]}')
             # if the command is an emote, update the image (for OBS usage)
             if msg in emotes:
-                image_to_save = Image.open(f'ImNabbo/{msg}.png')
+                image_to_save = Image.open(f'Emotes/{msg}.png')
                 image_to_save.save('last_command.png')
             last_user = username
             last_command = commands[msg]

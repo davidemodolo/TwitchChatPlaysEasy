@@ -6,6 +6,7 @@
     "commands":
     {
         "up": "{UP}",
+        "channelEmote": "{UP}",
         "down": "{DOWN}",
         "left": "{LEFT}",
         "right": "{RIGHT}",
