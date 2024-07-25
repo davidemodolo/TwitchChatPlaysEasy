@@ -1,6 +1,6 @@
 {
-    "NICK": "User",
-    "PASS": "oauth:xxxxxxxxxxx",
+    "NICK": "Username",
+    "PASS": "oauth:zzzzzzzzzzzzzz",
     "allow_multiple": true,
     "num_default_6": 6,
     "commands":

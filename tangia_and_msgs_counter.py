@@ -4,9 +4,7 @@ from tkinter import ttk
 import re
 import threading
 import socket
-import pandas as pd
 from time import sleep
-
 
 # from https://github.com/rokkuran/twitchbot
 class Bot(object):
@@ -94,10 +92,11 @@ class ChatReaderBot(Bot):
         # ignore the commmands from the bot
         if msg not in commands:
             # check if tangia message
-            if(username == "Tangiabot"):
+            if(username.lower() == "Tangiabot".lower()):
                 tangia_count += 1
                 save_tangia_count()
                 tangia_label.config(text=f'Tangia: {tangia_count}')
+
             # add counter of the user
             if username in top_users:
                 top_users[username] += 1
@@ -118,19 +117,17 @@ def stop():
     bot.stop()
     bot_thread.join()
 
-bot_thread = False
+bot_thread = None
 def start():
     global bot_thread
+    # Initialize and start the thread
     bot_thread = threading.Thread(target=start_bot)
     bot_thread.start()
 
 def on_closing():
     global bot_thread
 
-    if not bot_thread:
-        root.destroy()
-        exit()
-    elif bot_thread.is_alive():
+    if bot_thread is not None and bot_thread.is_alive():
         stop()
     
     root.destroy()
@@ -167,9 +164,8 @@ def save_tangia_count():
 
 
 if __name__ == '__main__':
-    f = open('settings.json', 'r')
-    settings = json.load(f)
     with open('settings.json', 'r') as f:
+        settings = json.load(f)
         NICK = settings['NICK']
         PASS = settings['PASS']
         commands = settings['commands']
@@ -179,7 +175,7 @@ if __name__ == '__main__':
 
     root = tk.Tk()
     root.title('Chat Reader')
-    root.geometry('400x120')
+    root.geometry('400x150')
 
     style = ttk.Style()
     style.theme_use('clam')  # You can choose 'clam', 'alt', 'default', or 'classic'
@@ -194,7 +190,7 @@ if __name__ == '__main__':
 
     tangia_label = ttk.Label(root, text=f'Tangia: {tangia_count}', font=('Helvetica', 16), background=color)
     tangia_label.pack(pady=10)
-
+    
+    start()  # Start the bot in a separate thread
     root.protocol("WM_DELETE_WINDOW", on_closing)  # Handle window close event
     root.mainloop()
-    start_bot()
